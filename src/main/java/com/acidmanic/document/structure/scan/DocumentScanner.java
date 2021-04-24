@@ -21,6 +21,17 @@ public class DocumentScanner {
     public DocumentScanner(DocumentAdapter documentAdapter) {
         this.documentAdapter = documentAdapter;
     }
+    
+    public Object getRoot(){
+        
+        boolean keyCaseSensitive = this.documentAdapter.keyCaseSensitive();
+
+        Key root = new Key(keyCaseSensitive);
+
+        Object rootObject = this.documentAdapter.getContent(root);
+        
+        return rootObject;
+    }
 
     public void scan(Action<Key, Object> entryScanner) {
 

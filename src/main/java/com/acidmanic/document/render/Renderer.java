@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.acidmanic.document.structure.propertymapped;
+package com.acidmanic.document.render;
+
+import com.acidmanic.document.structure.Key;
 
 /**
  *
  * @author diego
  */
-public interface DocumentStructureProvider {
-    
-    
-    PropertyMapper[] getLeafPointerKeysProperties();
+public interface Renderer {
+ 
+    void render(Key key,Object node,Object root);
 }

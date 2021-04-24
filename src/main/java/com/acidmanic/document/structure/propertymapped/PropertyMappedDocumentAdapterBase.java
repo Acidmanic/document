@@ -14,12 +14,12 @@ import java.util.List;
  *
  * @author diego
  */
-public abstract class PropertyMappedDocumentAdapter implements DocumentAdapter {
+public abstract class PropertyMappedDocumentAdapterBase implements DocumentAdapter {
 
     private final PropertyMapper[] properties;
     private final Object rootObject;
 
-    public PropertyMappedDocumentAdapter(PropertyMapper[] properties, Object rootObject) {
+    public PropertyMappedDocumentAdapterBase(PropertyMapper[] properties, Object rootObject) {
         this.properties = properties;
         this.rootObject = rootObject;
     }
