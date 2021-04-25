@@ -24,20 +24,35 @@ public abstract class PropertyMappedDocumentAdapterBase implements DocumentAdapt
         this.rootObject = rootObject;
     }
 
+    private PropertyMapper getpointingMapper(Key key) {
+
+        int keyLength = key.segmentsCount();
+
+        if (keyLength < this.properties.length) {
+
+            return this.properties[keyLength];
+        }
+        /**
+         * reaching here means: key is pointing to a leaf, there are no
+         * children, and the type is mapped by last property mapper*
+         */
+        return null;
+    }
+
     @Override
     public List<Key> getChilds(Key key) {
 
         ArrayList<Key> childs = new ArrayList<>();
 
-        if (key.segmentsCount() <= properties.length) {
+        PropertyMapper pointingMapper = getpointingMapper(key);
+        // if not a leaf
+        if (pointingMapper != null) {
 
             Object pointingObject = getContent(key);
 
             if (pointingObject != null) {
 
-                PropertyMapper mapper = properties[key.segmentsCount() - 1];
-
-                List<String> childSegments = mapper.keySegmentValues(pointingObject);
+                List<String> childSegments = pointingMapper.keySegmentValues(pointingObject);
 
                 for (String segment : childSegments) {
 
@@ -58,18 +73,18 @@ public abstract class PropertyMappedDocumentAdapterBase implements DocumentAdapt
             return rootObject;
         }
         if (key.segmentsCount() <= properties.length) {
-         
+
             Object object = rootObject;
-            
-            for(int segmentIndex =0;segmentIndex<key.segmentsCount();segmentIndex++){
-                
+
+            for (int segmentIndex = 0; segmentIndex < key.segmentsCount(); segmentIndex++) {
+
                 PropertyMapper mapper = properties[segmentIndex];
-                
+
                 String keySegmentValue = key.segment(segmentIndex);
-                
-                object = mapper.propertyValue(object,keySegmentValue);
-                
-                if(object==null){
+
+                object = mapper.propertyValue(object, keySegmentValue);
+
+                if (object == null) {
                     break;
                 }
             }

@@ -104,4 +104,49 @@ public class Key {
 
         return this.segments.get(segmentIndex);
     }
+
+    public Key subKey(int start, int end) {
+
+        Key key = new Key(this.caseSensitive);
+
+        for (int i = start; i < end; i++) {
+            key.segments.add(this.segments.get(i));
+        }
+        return key;
+    }
+
+    public String leafValue() {
+        if (!this.segments.isEmpty()) {
+            return this.segment(this.segments.size() - 1);
+        }
+        return "";
+    }
+
+    public String jointSegments() {
+        return jointSegments(";");
+    }
+
+    public String jointSegments(String delimiter) {
+
+        String sep = "";
+        String joint = "";
+
+        for (String segment : this.segments) {
+
+            joint += sep + segment;
+
+            sep = delimiter;
+        }
+        return joint;
+    }
+
+    public boolean pointsToRoot() {
+        return this.segments.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        return jointSegments("/");
+    }
+
 }

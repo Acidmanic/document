@@ -6,6 +6,7 @@
 package com.acidmanic.document.render;
 
 import com.acidmanic.document.structure.Key;
+import java.util.List;
 
 /**
  *
@@ -13,5 +14,5 @@ import com.acidmanic.document.structure.Key;
  */
 public interface Renderer {
  
-    void render(Key key,Object node,Object root);
+    void render(Key key,Object node,Object root,List<Key> childs);
 }

@@ -23,7 +23,7 @@ public class RenderEngine {
 
         Object root = scanner.getRoot();
 
-        scanner.scan((key, node) -> {
+        scanner.scan((key, node, childs) -> {
 
             if (node != null) {
 
@@ -33,7 +33,7 @@ public class RenderEngine {
 
                     Renderer renderer = renderers.get(type);
 
-                    renderer.render(key, node, root);
+                    renderer.render(key, node, root, childs);
                 }
             }
 
